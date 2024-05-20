@@ -17,6 +17,8 @@ public class RewindController : MonoBehaviour
     Animator animator;
     public AudioSource audioSource; // AudioSource referansý
 
+    public GameOver gameover;
+
     // CountdownTimer scriptine eriþmek için CountdownTimer bileþenine referans oluþturuyoruz.
     public CountdownTimer countdownTimer;
 
@@ -63,6 +65,7 @@ public class RewindController : MonoBehaviour
     {
         if (positions.Count > 0)
         {
+            gameover.isOver = false;
             transform.position = positions[positions.Count - 1];
             transform.rotation = rotations[rotations.Count - 1];
             rb.velocity = velocities[velocities.Count - 1];

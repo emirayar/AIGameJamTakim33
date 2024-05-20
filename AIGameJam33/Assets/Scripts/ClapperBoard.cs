@@ -12,12 +12,13 @@ public class ClapperBoard : MonoBehaviour
     Animator animator;
     GameObject player;
     Vector2 position;
+    public bool countdown;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        animator.SetTrigger("ClapperBoard");
+        StartCoroutine(WaitCountdown());
         StartCoroutine(EnableElements());
         player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -28,8 +29,8 @@ public class ClapperBoard : MonoBehaviour
 
     IEnumerator EnableElements()
     {
-        yield return new WaitForSeconds(0.55f);
-
+        countdown = true;
+        yield return new WaitForSeconds(3.55f);
         // Enable all images in the array
         foreach (Image img in images)
         {
@@ -39,6 +40,12 @@ public class ClapperBoard : MonoBehaviour
         {
             text.gameObject.SetActive(true);
         }
+        countdown = false;
+    }
+    IEnumerator WaitCountdown()
+    {
+        yield return new WaitForSeconds(3f);
+        animator.SetTrigger("ClapperBoard");
     }
 
     public void PlayClip()

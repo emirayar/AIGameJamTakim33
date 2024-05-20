@@ -23,6 +23,8 @@ public class Jump : MonoBehaviour
     [SerializeField] private float jumpForceMax;
     [SerializeField] private float backJumpForce = 5f;
 
+    public GameOver gameover;
+
     private CinemachineImpulseSource impulseSource;
     // Start is called before the first frame update
     void Start()
@@ -158,6 +160,7 @@ public class Jump : MonoBehaviour
                 animator.SetTrigger("isGrounded");
                 animator.SetTrigger("Hurt");
                 impulseSource.GenerateImpulse();
+                gameover.isOver = true;
             }
         }
     }

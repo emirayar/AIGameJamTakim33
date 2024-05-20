@@ -8,6 +8,7 @@ public class CountdownTimer : MonoBehaviour
     public TMP_Text timerText; // Timer'ýn ekrandaki metni (TextMeshPro kullanýyoruz)
     private bool isTimerRunning = false; // Timer'ýn çalýþýp çalýþmadýðýný kontrol etmek için flag
     public RewindController rewind;
+    public GameOver gameover;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class CountdownTimer : MonoBehaviour
                 timeRemaining = 0;
                 isTimerRunning = false;
                 Debug.Log("Süre doldu!");
+                gameover.isOver = true;
                 StopTimer();
                 // Ýþlem yapmak için gerekli kodu buraya ekleyebilirsiniz.
             }

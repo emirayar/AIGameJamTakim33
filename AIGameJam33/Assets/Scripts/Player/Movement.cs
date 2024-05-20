@@ -18,6 +18,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioClip footstepSound;
     private AudioSource audioSource;
     private bool isPlayingFootstep;
+    public ClapperBoard clapperBoard;
+    public GameOver gameOver;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +43,7 @@ public class Movement : MonoBehaviour
 
     void Move()
     {
-        if (slideController.isGroundSliding)
+        if (slideController.isGroundSliding || clapperBoard.countdown || gameOver.isOver)
         {
             return;
         }
