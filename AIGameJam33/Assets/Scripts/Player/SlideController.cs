@@ -10,7 +10,6 @@ public class SlideController : MonoBehaviour
     private CapsuleCollider2D capsuleCollider;
     public CapsuleCollider2D slideCollider;
     private Animator animator;
-    //private Stamina stamina;
 
     public bool isGroundSliding = false;
 
@@ -24,27 +23,16 @@ public class SlideController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         movement = GetComponent<Movement>();
         animator = GetComponent<Animator>();
-        //stamina = GetComponent<Stamina>();
 
         slideCollider.enabled = false;
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        /*if (stamina.currentStamina >= 20)
-        {
-            Slide();
-        }
-        else
-        {
-            Debug.Log("Not Enough Stamina");
-            stamina.DecreasingEffect();
-        }*/
-
         Slide();
     }
+
     void Slide()
     {
         if (Input.GetButton("Slide") && canSlide)
@@ -58,7 +46,6 @@ public class SlideController : MonoBehaviour
                 // Kayma animasyonunu çalýþtýr
                 animator.SetBool("Slide", true);
 
-
                 if (movement.isFacingRight)
                 {
                     rb.AddForce(Vector2.right * 10f, ForceMode2D.Impulse);
@@ -67,13 +54,13 @@ public class SlideController : MonoBehaviour
                 {
                     rb.AddForce(Vector2.right * -1 * 10f, ForceMode2D.Impulse);
                 }
-                //stamina.UseStamina(20);
 
                 StartCoroutine(StopSliding());
                 StartCoroutine(SlideCooldown());
             }
         }
     }
+
     private IEnumerator StopSliding()
     {
         yield return new WaitForSeconds(0.4f);
@@ -84,6 +71,7 @@ public class SlideController : MonoBehaviour
         capsuleCollider.enabled = true;
         slideCollider.enabled = false;
     }
+
     private IEnumerator SlideCooldown()
     {
         canSlide = false;
@@ -91,5 +79,14 @@ public class SlideController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         canSlide = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isGroundSliding && collision.gameObject.CompareTag("Turret"))
+        {
+            collision.gameObject.GetComponent<Turret>().isExploded = true;
+            Destroy(collision.gameObject, 0.5f);
+        }
     }
 }

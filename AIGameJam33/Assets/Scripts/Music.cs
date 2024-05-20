@@ -13,7 +13,6 @@ public class BackgroundMusicController : MonoBehaviour
         }
     }
 
-    // Müziði durdurmak veya baþlatmak için bu metodlarý kullanabilirsiniz
     public void StopMusic()
     {
         if (audioSource != null && audioSource.isPlaying)
@@ -27,6 +26,22 @@ public class BackgroundMusicController : MonoBehaviour
         if (audioSource != null && !audioSource.isPlaying)
         {
             audioSource.Play();
+        }
+    }
+
+    public void PauseMusic()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Pause();
+        }
+    }
+
+    public void ResumeMusic()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.UnPause();
         }
     }
 }

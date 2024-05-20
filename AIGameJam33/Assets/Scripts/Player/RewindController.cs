@@ -19,8 +19,12 @@ public class RewindController : MonoBehaviour
 
     public GameOver gameover;
 
+    public Turret turret;
+
     // CountdownTimer scriptine eriþmek için CountdownTimer bileþenine referans oluþturuyoruz.
     public CountdownTimer countdownTimer;
+
+    private BackgroundMusicController backgroundMusicController;
 
     // Use this for initialization
     void Start()
@@ -33,11 +37,19 @@ public class RewindController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        // BackgroundMusicController scriptini bul
+        GameObject backgroundMusicObject = GameObject.Find("BackgroundMusic");
+        if (backgroundMusicObject != null)
+        {
+            backgroundMusicController = backgroundMusicObject.GetComponent<BackgroundMusicController>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        StopMusic();
         if (Input.GetButtonDown("Rewind"))
             StartRewind();
         if (Input.GetButtonUp("Rewind"))
@@ -66,6 +78,7 @@ public class RewindController : MonoBehaviour
         if (positions.Count > 0)
         {
             gameover.isOver = false;
+            turret.isFiring = false;
             transform.position = positions[positions.Count - 1];
             transform.rotation = rotations[rotations.Count - 1];
             rb.velocity = velocities[velocities.Count - 1];
@@ -113,6 +126,23 @@ public class RewindController : MonoBehaviour
     {
         isRewinding = false;
         rb.isKinematic = false;
+        turret.isFiring = true;
         audioSource.Stop(); // AudioSource ile sesi durdur
+    }
+
+    void StopMusic()
+    {
+        // isRewinding durumunu kontrol et ve müziði durdur veya devam ettir
+        if (backgroundMusicController != null)
+        {
+            if (isRewinding && backgroundMusicController.GetComponent<AudioSource>().isPlaying)
+            {
+                backgroundMusicController.PauseMusic();
+            }
+            else if (!isRewinding && !backgroundMusicController.GetComponent<AudioSource>().isPlaying)
+            {
+                backgroundMusicController.ResumeMusic();
+            }
+        }
     }
 }
