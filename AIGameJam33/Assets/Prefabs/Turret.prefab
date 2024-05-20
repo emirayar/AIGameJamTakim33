@@ -148,9 +148,11 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5631776363730942433, guid: dfffc3f8df3c47442b89f0428b8b731a, type: 3}
   firePoint: {fileID: 9067552503666390634}
   isFiring: 1
+  isFired: 0
   fireRate: 3
   fireforce: 20
   isExploded: 0
+  clip: {fileID: 8300000, guid: e11a5a019377fbd4c81caa0adcb4c236, type: 3}
 --- !u!95 &1857316020220872379
 Animator:
   serializedVersion: 5
@@ -159,7 +161,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3493545050626360189}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0082d767db030f4478b4a9bfc6c872a4, type: 2}
   m_CullingMode: 0

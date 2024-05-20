@@ -21,7 +21,7 @@ public class Jump : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float jumpForceMin;
     [SerializeField] private float jumpForceMax;
-    [SerializeField] private float backJumpForce = 5f;
+    [SerializeField] private float backJumpForce = 20f;
 
     public GameOver gameover;
 
@@ -124,7 +124,7 @@ public class Jump : MonoBehaviour
         if (Input.GetButtonDown("BackJump") && canJump && isGrounded)
         {
             // Geriye doðru zýplama baþlat
-            rb.velocity = new Vector2(-backJumpForce, rb.velocity.y);
+            rb.velocity = new Vector2(-backJumpForce, jumpForceMax);
             animator.SetBool("isJumping", true);
         }
         else

@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour
     private bool isPlayingFootstep;
     public ClapperBoard clapperBoard;
     public GameOver gameOver;
+    public NextLevel next;
 
     // Start is called before the first frame update
     void Start()
